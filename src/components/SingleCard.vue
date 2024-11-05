@@ -1,6 +1,13 @@
 <template>
-    <n-card :title="cardTitle" v-if="loadFinished" style="width: 280px">
-        <n-image :src="cardImage" height="320" width="240" object-fit="cover"></n-image>
+    <n-card v-if="loadFinished" style="width: 280px">
+        <template #header>
+            <n-skeleton v-if="!cardTitle"></n-skeleton>
+            <template v-else>{{cardTitle}}</template>
+        </template>
+        <n-flex justify="center">
+        <n-spin v-if="!imageLoaded" ></n-spin>
+        <n-image v-show="imageLoaded" :src="cardImage" height="320" width="240" object-fit="cover" :on-load="imageHandle" />
+        </n-flex>
         <template #footer>
             <n-flex vertical>
                 <div>当前票数：{{ count }}</div>
@@ -11,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { NButton, NCard, NImage, NFlex, } from 'naive-ui';
+import { NButton, NCard, NImage, NFlex, NSkeleton, NSpin} from 'naive-ui';
 import { useDialog, useMessage } from 'naive-ui';
 import { ref, onMounted } from 'vue';
 
@@ -24,6 +31,7 @@ const cardTitle = ref<string>();
 const cardImage = ref<string>();
 const voted = ref<boolean>(false);
 const loadFinished = ref<boolean>(false);
+const imageLoaded = ref<boolean>(false);
 
 
 const fetchData = async (types: "vn" | "producer" | "character" | "staff", vndb_id: String) => {
@@ -86,6 +94,10 @@ const voteHandle = () => {
             message.error('投票取消');
         }
     })
+}
+
+const imageHandle = () => {
+    imageLoaded.value = true;
 }
 
 onMounted(() => {
