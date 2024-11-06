@@ -1,29 +1,32 @@
 <template>
-    <n-card v-if="loadFinished" style="width: 280px">
+    <n-card v-if="loadFinished" style="width: 280px" embedded>
         <template #header>
             <n-skeleton v-if="!cardTitle"></n-skeleton>
-            <template v-else>{{cardTitle}}</template>
+            <template v-else>{{ cardTitle }}</template>
         </template>
         <n-flex justify="center">
-        <n-spin v-if="!imageLoaded" ></n-spin>
-        <n-image v-show="imageLoaded" :src="cardImage" height="320" width="240" object-fit="cover" :on-load="imageHandle" />
+            <n-spin v-if="!imageLoaded"></n-spin>
+            <n-image v-show="imageLoaded" :src="cardImage" height="320" width="240" object-fit="cover"
+                :on-load="imageHandle" />
         </n-flex>
         <template #footer>
             <n-flex vertical>
                 <div>当前票数：{{ count }}</div>
-                <n-button @click="voteHandle" :disabled="voted">{{voted ? "已投票":"投票"}}</n-button>
+                <n-button @click="voteHandle" :disabled="voted" color="#66ccff">{{ voted ? "已投票" : "投票" }}</n-button>
             </n-flex>
-    </template>
+        </template>
     </n-card>
 </template>
 
 <script setup lang="ts">
-import { NButton, NCard, NImage, NFlex, NSkeleton, NSpin} from 'naive-ui';
+import { NButton, NCard, NImage, NFlex, NSkeleton, NSpin } from 'naive-ui';
 import { useDialog, useMessage } from 'naive-ui';
 import { ref, onMounted } from 'vue';
 
+import { EntryCategory } from '../types';
 
-const props = defineProps<{ types: "vn" | "character" | "staff", vndb_id: String, count: Number }>()
+
+const props = defineProps<{ types: EntryCategory, vndb_id: String, count: Number }>()
 const dialog = useDialog();
 const message = useMessage();
 
@@ -34,13 +37,13 @@ const loadFinished = ref<boolean>(false);
 const imageLoaded = ref<boolean>(false);
 
 
-const fetchData = async (types: "vn" | "producer" | "character" | "staff", vndb_id: String) => {
+const fetchData = async (types: EntryCategory, vndb_id: String) => {
     try {
         const fieldsByTypes = {
-            "character":"name, original, image.url",
-            "vn":"title, image.url",
-            "staff":"",
-            "producer":""
+            "character": "name, original, image.url",
+            "vn": "title, image.url",
+            "staff": "",
+            "producer": ""
         }
         const response = await fetch(`https://api.vndb.org/kana/${types}`,
             {
