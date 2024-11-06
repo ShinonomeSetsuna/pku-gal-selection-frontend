@@ -5,7 +5,7 @@ import { EntryCategory } from "../types";
 export const useUserStore = defineStore("vote", {
     state: () => ({
         userEmail: "",
-        userSelect: "" as EntryCategory
+        userSelect: "" as EntryCategory | undefined
     }),
     getters: {
         getUserEmail: (state) => state.userEmail,
