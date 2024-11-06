@@ -13,7 +13,7 @@
 </style>
 
 <script setup lang="ts">
-import { EntryCategory, CompetitionFormat } from '../types';
+import { CompetitionFormat } from '../types';
 import { NFlex, NH1, NP } from 'naive-ui';
 
 const rules: Map<CompetitionFormat, String> = new Map([
