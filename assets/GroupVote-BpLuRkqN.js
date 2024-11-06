@@ -1,1 +1,0 @@
-import{R as o}from"./Rules-BF8LjikN.js";import{d as e,U as t,Y as r}from"./index-DIkc4vSZ.js";import"./p-DdnaY6Pq.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const i=e({__name:"GroupVote",setup(p){return(a,m)=>(r(),t(o,{"competetion-format":"group"}))}});export{i as default};
