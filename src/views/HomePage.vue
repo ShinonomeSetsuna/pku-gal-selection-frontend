@@ -53,9 +53,8 @@
 
 
 <script setup lang="ts">
-import { NButton, NFlex, NH1, NH2, NP, NRadioGroup, NRadioButton, NRadio, NInput } from 'naive-ui';
+import { NButton, NFlex, NH1, NH2, NP, NRadioGroup, NRadioButton, NInput } from 'naive-ui';
 import { useUserStore } from '../stores/userStore';
-import Rules from '../components/Rules.vue';
 
 const userStore = useUserStore();
 
