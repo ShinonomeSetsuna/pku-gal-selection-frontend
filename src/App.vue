@@ -1,31 +1,39 @@
 <template>
-  <n-dialog-provider>
-    <n-message-provider>
-      <router-view></router-view>
-    </n-message-provider>
-  </n-dialog-provider>
+  <n-layout position="absolute" id="page">
+    <n-layout-header id="header"></n-layout-header>
+    <n-layout position="absolute" id="content" :native-scrollbar="false">
+      <n-dialog-provider>
+        <n-message-provider>
+          <router-view></router-view>
+        </n-message-provider>
+      </n-dialog-provider></n-layout>
+    <n-layout-footer position="absolute" id="footer">Develop&nbsp;By&nbsp;<a
+        href="https://github.com/shinonomesetsuna">ShinonomeSetsuna</a></n-layout-footer>
+  </n-layout>
+
 </template>
 
-<style scoped></style>
+<style scoped>
+#header {
+  height: 64px;
+  background-color: azure
+}
+
+#content {
+  top: 64px;
+  bottom: 64px;
+}
+
+#footer {
+  display: flex;
+  height: 64px;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import { NLayout, NLayoutHeader, NLayoutFooter } from 'naive-ui';
 import { NDialogProvider, NMessageProvider } from 'naive-ui'
-/**
-interface Data {
-  types: "character" | "vn" | "staff",
-  vndbID: String,
-  count: Number
-}
-
-  const dataList: Data[] = [
-    { types: "character", vndbID: "c128207", count: 44.5 },
-    { types: "character", vndbID: "c87815", count: 44.5 },
-    { types: "character", vndbID: "c128205", count: 44.5 },
-    { types: "character", vndbID: "c7921", count: 44.5 },
-    { types: "vn", vndbID: "v38430", count: 44.5 },
-    { types: "character", vndbID: "c111506", count: 44.5 },
-    { types: "vn", vndbID: "v36375", count: 44.5 },
-  ]
-*/
 </script>

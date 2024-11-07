@@ -1,38 +1,41 @@
 <template>
-    <n-card v-if="loadFinished" style="width: 240px" embedded>
-        <template #header>
-            <n-skeleton v-if="!cardTitle"></n-skeleton>
-            <template v-else>{{ cardTitle }}</template>
-        </template>
-        <n-flex justify="center">
-            <n-spin v-if="!imageLoaded"></n-spin>
-            <n-image v-show="imageLoaded" :src="cardImage" height="200" width="200" object-fit="cover"
-                :on-load="imageHandle" />
-        </n-flex>
-        <template #footer>
-            <n-flex vertical>
-                <div>当前票数：{{ count }}</div>
-                <n-button @click="voteHandle" :disabled="voted" color="#66ccff">{{ voted ? "已投票" : "投票" }}</n-button>
+    <div style="display: flex; justify-content: center;">
+        <n-card v-if="loadFinished" style="width: 240px" embedded>
+            <template #header>
+                <n-skeleton v-if="!cardTitle"></n-skeleton>
+                <template v-else>{{ cardTitle }}</template>
+            </template>
+            <n-flex justify="center">
+                <n-spin v-if="!imageLoaded"></n-spin>
+                <n-image v-show="imageLoaded" :src="cardImage" height="200" width="200" object-fit="cover"
+                    :on-load="imageHandle" />
             </n-flex>
-        </template>
-    </n-card>
+            <template #footer>
+                <n-flex>
+                    <p>确定要为 <b>{{ cardTitle }}</b> 投票吗？</p>
+                </n-flex>
+            </template>
+        </n-card>
+    </div>
 </template>
 
+<!--对SingleCard.vue的魔改，先对付用一下-->
 <script setup lang="ts">
-import { NButton, NCard, NImage, NFlex, NSkeleton, NSpin } from 'naive-ui';
-import { useDialog, useMessage } from 'naive-ui';
+import { NCard, NImage, NFlex, NSkeleton, NSpin } from 'naive-ui';
+import { useMessage } from 'naive-ui';
 import { ref, onMounted } from 'vue';
 
 import { EntryCategory } from '../types';
+import { useVoteStore } from '../stores/voteStore';
 
 
-const props = defineProps<{ types: EntryCategory, VNDBId: String, count: Number }>()
-const dialog = useDialog();
+const voteStore = useVoteStore();
+
+const props = defineProps<{ VNDBId: String }>()
 const message = useMessage();
 
 const cardTitle = ref<string>();
 const cardImage = ref<string>();
-const voted = ref<boolean>(false);
 const loadFinished = ref<boolean>(false);
 const imageLoaded = ref<boolean>(false);
 
@@ -84,28 +87,12 @@ const fetchData = async (types: EntryCategory, vndb_id: String) => {
     }
 }
 
-const voteHandle = () => {
-    dialog.warning({
-        title: '警告',
-        content: `你确定要为 ${cardTitle.value} 投票吗？该操作不可撤回`,
-        positiveText: '确定',
-        negativeText: '不确定',
-        onPositiveClick: () => {
-            message.success('投票成功！');
-            voted.value = true;
-        },
-        onNegativeClick: () => {
-            message.error('投票取消');
-        }
-    })
-}
-
 const imageHandle = () => {
     imageLoaded.value = true;
 }
 
 onMounted(() => {
-    fetchData(props.types, props.VNDBId)
+    fetchData(voteStore.getAddVoteType(), props.VNDBId)
 })
 
 </script>

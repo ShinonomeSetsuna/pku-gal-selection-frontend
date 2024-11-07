@@ -11,15 +11,15 @@ export const useUserStore = defineStore("vote", {
         getUserEmail: (state) => state.userEmail,
         getUserSelect: (state) => state.userSelect,
         getStatus: (state) => (): boolean => {
-            return Boolean(state.userEmail.match(/.*?@.*?\..*?/))
+            return true || Boolean(state.userEmail.match(/.+?@.+?\..+?/))
         }
     },
     actions: {
         setUserEmail(userInput: string) {
-            this.userEmail = userInput
+            this.userEmail = userInput;
         },
         setUserSelect(userInput: EntryCategory) {
-            this.userSelect = userInput
+            this.userSelect = userInput;
         }
     }
 })

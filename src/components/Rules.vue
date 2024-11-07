@@ -1,7 +1,8 @@
 <template>
     <n-flex vertical id="rule">
-        <NH1>PKU_GAL同好会2024年大选</NH1>
-        <NP>{{ rules.get(props.competetionFormat) }}</NP>
+        <n-h1>PKU_GAL同好会2024年大选</n-h1>
+        <n-p>目前还在测试阶段，所以并没有分组，也没有后端，只是随便测试一下</n-p>
+        <n-p>{{ rules.get(props.competetionFormat) }}</n-p>
     </n-flex>
 </template>
 
