@@ -1,1 +1,0 @@
-import{R as o}from"./Rules-xsynbhmu.js";import{d as e,Y as t,$ as r}from"./index-Chh6nQU2.js";import"./p-FWiiqDWL.js";import"./_plugin-vue_export-helper-DlAUqK2U.js";const f=e({__name:"QualifyingVote",setup(a){return(n,i)=>(r(),t(o,{"competetion-format":"qualifying"}))}});export{f as default};

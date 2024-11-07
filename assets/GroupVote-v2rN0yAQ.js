@@ -1,0 +1,1 @@
+import{R as o}from"./Rules-CY3_oKln.js";import{a as e,aP as t,o as r}from"./index-DdUj8tvb.js";import"./p-DI1bB3da.js";const _=e({__name:"GroupVote",setup(a){return(p,m)=>(r(),t(o,{"competetion-format":"group"}))}});export{_ as default};
