@@ -1,13 +1,13 @@
 <template>
-    <n-card v-if="loadFinished" style="width: 240px" embedded>
+    <n-card v-if="loadFinished" embedded>
         <template #header>
             <n-skeleton v-if="!cardTitle"></n-skeleton>
             <template v-else>{{ cardTitle }}</template>
         </template>
-        <n-flex justify="center">
+        <n-flex justify="center" style="overflow: hidden;">
             <n-spin v-if="!imageLoaded"></n-spin>
-            <n-image v-show="imageLoaded" :src="cardImage" height="200" width="200" object-fit="cover"
-                :on-load="imageHandle" />
+            <n-image v-show="imageLoaded" :src="cardImage" :height="Math.min(0.40 * width, 240)"
+                :width="Math.max(0.30 * width, 240)" object-fit="cover" :on-load="imageHandle" />
         </n-flex>
         <template #footer>
             <n-flex vertical>
@@ -17,6 +17,12 @@
         </template>
     </n-card>
 </template>
+
+<style scoped>
+.n-image {
+    justify-content: center;
+}
+</style>
 
 <script setup lang="ts">
 import { NButton, NCard, NImage, NFlex, NSkeleton, NSpin } from 'naive-ui';
@@ -35,6 +41,8 @@ const cardImage = ref<string>();
 const voted = ref<boolean>(false);
 const loadFinished = ref<boolean>(false);
 const imageLoaded = ref<boolean>(false);
+
+const width = window.innerWidth;
 
 
 const fetchData = async (types: EntryCategory, vndb_id: String) => {

@@ -5,15 +5,16 @@
             <n-flex vertical justify="center" id="addition" class="background">
                 <n-p style="font-size: 24px; margin: 15px 15px 7.5px 15px;">请输入VNDB代码，后续开放网页查询功能</n-p>
                 <n-flex justify="space-between" style="margin: 7.5px 15px 15px 15px;">
-                    <n-input style="max-width: 450px; text-align: start" placeholder="e.g.:c94398, 藤川みあ@Loopers"
+                    <n-input style="max-width: 60vw; text-align: start" placeholder="e.g.:c94398, 藤川みあ@Loopers"
                         :value="voteStore.getAddVote"
                         @update:value="(value) => { voteStore.setAddVote(value) }"></n-input>
                     <n-button @click="buttonHandle">确定</n-button>
                 </n-flex>
             </n-flex>
-            <n-flex justify="space-between" id="cards" class="background">
+            <n-flex justify="center" id="cards" class="background">
                 <single-card v-for=" data in dataList" :types="data.types" :-v-n-d-b-id="data.vndbID"
-                    :count="data.count" style="margin: 24px;"></single-card>
+                    :count="data.count"
+                    style="margin: 1em; width:240px ; max-width: 40vw; height: fit-content;"></single-card>
             </n-flex>
         </n-flex>
     </div>
